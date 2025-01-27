@@ -1,0 +1,7 @@
+{
+  "name": "ionic-SVtickets",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
