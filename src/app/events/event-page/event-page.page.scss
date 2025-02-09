@@ -1,0 +1,26 @@
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.animated-searchbar {
+  overflow: hidden;
+  min-width: 0;
+  transition: width 0.2s ease-in-out;
+}
+
+.filters-buttons ion-button {
+  --background: white;
+  --color: #0054e9;
+}
+
+.filterIcon {
+  margin-right: 0.3em;
+}
+
+.filtersFab {
+  position: absolute;
+  top: 65px;
+  right: 16px;
+  z-index: 1000;
+}

@@ -1,13 +1,71 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>event-page</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">event-page</ion-title>
+<ion-header>
+    <ion-toolbar color="primary">
+      <div class="toolbar-content">
+        <ion-title>Events</ion-title>
+  
+        <ion-searchbar
+          [formControl]="searchControl"
+          [style.width]="searchVisible ? '100%' : '0px'"
+          class="animated-searchbar"
+        >
+        </ion-searchbar>
+  
+        <ion-buttons slot="end">
+          <ion-button (click)="toggleSearch()">
+            <ion-icon
+              [name]="searchVisible ? 'close-sharp' : 'search-sharp'"
+            ></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </div>
     </ion-toolbar>
   </ion-header>
+  
+  <ion-fab class="filtersFab" vertical="top" horizontal="end" slot="fixed">
+    <ion-button (click)="openFilters()">
+      <ion-icon name="options-sharp"></ion-icon>
+    </ion-button>
+  </ion-fab>
+  
+  
+
+<ion-content [fullscreen]="true">
+  <ion-refresher #refresher slot="fixed" (ionRefresh)="refresh(refresher)">
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button
+      color="secondary"
+      [routerLink]="['/events/add']"
+      [routerDirection]="'root'"
+    >
+      <ion-icon name="add-circle-sharp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-grid class="mb-4 mt-4">
+    <ion-row>
+      @if (events().length) { @for (event of events(); track event.id) {
+      <ion-col size="12" size-md="6" size-xl="4">
+        <app-event-card
+          [event]="event"
+          (deleted)="deleteEvent(event)"
+        ></app-event-card>
+      </ion-col>
+      } }
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll
+    #infinite
+    (ionInfinite)="loadMore()"
+    [disabled]="!eventsLeft()"
+  >
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Asistentes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <ion-list>
+      <ion-list-header>
+        <h2>Asistentes al evento</h2>
+      </ion-list-header>
+      @for (user of attendees(); track user.id) {
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]="user.avatar" alt="{{ user.name }}" />
+        </ion-avatar>
+        <ion-label> {{ user.name }} </ion-label>
+      </ion-item>
+      }
+    </ion-list>
+  </div>
+</ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="toggleAttendance()">
+    <ion-icon
+      [name]="this.event()!.attend ? 'person-remove-sharp' : 'person-add-sharp'"
+    ></ion-icon>
+  </ion-fab-button>
+</ion-fab>

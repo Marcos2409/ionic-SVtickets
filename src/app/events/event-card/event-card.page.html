@@ -1,0 +1,60 @@
+<ion-col>
+  <ion-card class="card h-100 shadow-lg event-card">
+    <a [routerLink]="['/events', event().id]" class="image-container">
+      <img
+        class="card-img-top"
+        [src]="event().image"
+        [alt]="event().title"
+      />
+    </a>
+    <ion-card-content class="card-body">
+      <ion-card-title class="card-title">
+        <a class="text-decoration-none title-link" [routerLink]="['/events', event().id]">
+          {{ event().title }}
+        </a>
+      </ion-card-title>
+      <p class="card-text description">
+        {{ event().description }}
+      </p>
+    </ion-card-content>
+    <ion-card-content>
+      @if (event().mine) {
+        <ion-button color="primary" (click)="showAction()">Options</ion-button>
+
+        }
+      <ion-grid>
+        <ion-row class="card-footer text-muted row m-0 flex-column flex-sm-row align-items-start align-items-sm-center">
+          <ion-col class="creator-info d-flex align-items-center w-100">
+            <div class="avatar">
+              <a [routerLink]="event().mine ? ['/profile'] : ['/profile', event().creator.id]">
+                <img
+                  [src]="event().creator.avatar"
+                  class="rounded-circle"
+                  [alt]="event().creator.name"/>
+              </a>
+            </div>
+            <div class="ion-padding-start">
+              <ion-row class="name">
+                <a [routerLink]="event().mine ? ['/profile'] : ['/profile', event().creator.id]" class="creator-name">
+                  {{ event().creator.name }}
+                </a>
+              </ion-row>
+              <ion-row class="date small text-muted">
+                <ion-icon name="calendar-outline"></ion-icon> {{ event().date | date : "dd/MM/yyyy" }}
+              </ion-row>
+            </div>
+          </ion-col>
+          <ion-col size="auto" class="event-details ms-auto text-start text-sm-end">
+            <div class="price small">
+              <ion-icon name="cash-outline"></ion-icon> {{ event().price | intlCurrency:"EUR":"es-ES" }}
+            </div>
+            <div class="distance small">
+              <ion-icon name="location-outline"></ion-icon> {{ event().distance | distanceKm }}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    
+  </ion-card>
+</ion-col>

@@ -12,7 +12,7 @@ import { Geometry } from 'ol/geom';
 export class OlMapDirective {
   #elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   coordinates = input.required<[number, number]>();
-  zoom = input(16);
+  zoom = input(12);
 
   #map!: Map;
   #view!: View;

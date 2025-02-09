@@ -7,7 +7,7 @@ export const authRoutes: Routes = [
     loadComponent: () =>
       import('./login/login.page').then((m) => m.LoginPage),
     title: 'Login | SVTickets',
-    canDeactivate: [leavePageGuard],
+    // canDeactivate: [leavePageGuard],
     data: { animation: 'loginPage' }
   },
   {

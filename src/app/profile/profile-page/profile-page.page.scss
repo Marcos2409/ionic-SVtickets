@@ -1,0 +1,70 @@
+#profile {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+
+  #avatar {
+    margin-bottom: 16px;
+  }
+
+  #profileInfo {
+    padding: 16px;
+
+    .btn {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+
+    .btn-sm {
+      --padding-start: 8px;
+      --padding-end: 8px;
+      font-size: 14px;
+      height: 36px;
+      line-height: 36px;
+    }
+
+    ion-button {
+      margin: 8px 0;
+    }
+
+    ion-input {
+      padding-left: 8px;
+    }
+
+    ion-label.btn {
+      font-size: 14px;
+    }
+
+    ion-item {
+      margin-bottom: 16px;
+      --padding-start: 10px;
+      --padding-end: 10px;
+    }
+  }
+}
+
+.card {
+  margin-top: 20px;
+  padding: 16px;
+}
+
+ion-modal {
+  --min-width: 300px;
+}
+
+ion-header {
+  padding: 12px 16px;
+}
+
+ion-toolbar {
+  padding: 4px 0;
+}
+
+ion-footer {
+  padding: 16px;
+}
+.map-container {
+  position: relative;
+  height: 400px;
+}

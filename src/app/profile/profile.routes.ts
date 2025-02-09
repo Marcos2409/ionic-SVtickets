@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { profileResolver } from './resolvers/profile.resolver';
+import { numericIdGuard } from '../shared/guards/numeric-id.guard';
 
 export const profileRoutes: Routes = [
   {
@@ -8,22 +9,23 @@ export const profileRoutes: Routes = [
       user: profileResolver,
     },
     loadComponent: () =>
-      import('./profile-page/profile-page.component').then(
-        (m) => m.ProfilePageComponent
+      import('./profile-page/profile-page.page').then(
+        (m) => m.ProfilePagePage
       ),
     title: 'Profile | SVTickets',
-    data: { animation: 'profilePage' }
+    data: { animation: 'profilePage' },
   },
   {
     path: ':id',
+    canActivate: [numericIdGuard],
     resolve: {
       user: profileResolver,
     },
     loadComponent: () =>
-      import('./profile-page/profile-page.component').then(
-        (m) => m.ProfilePageComponent
+      import('./profile-page/profile-page.page').then(
+        (m) => m.ProfilePagePage
       ),
     title: 'Profile | SVTickets',
-    data: { animation: 'profilePage' }
+    data: { animation: 'profilePage' },
   },
 ];

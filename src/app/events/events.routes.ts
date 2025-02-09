@@ -7,44 +7,43 @@ export const eventsRoutes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./event-page/event-page.page').then(
-        (m) => m.EventPagePage
-      ),
+      import('./event-page/event-page.page').then((m) => m.EventsPageComponent),
     title: 'Eventos | SVTickets',
-    data: { animation: 'eventsPage' }
+    data: { animation: 'eventsPage' },
   },
   {
     path: 'add',
     canDeactivate: [leavePageGuard],
     loadComponent: () =>
-      import('./event-form/event-form.component').then(
-        (m) => m.EventFormComponent
+      import('./event-form/event-form.page').then(
+        (m) => m.EventFormPage
       ),
     title: 'Añadir evento | SVTickets',
-    data: { animation: 'eventForm' }
-  },{
+    data: { animation: 'eventForm' },
+  },
+  {
     path: ':id/edit',
     canActivate: [numericIdGuard],
     resolve: {
       event: eventResolver,
     },
     loadComponent: () =>
-      import('./event-form/event-form.component').then(
-        (m) => m.EventFormComponent
+      import('./event-form/event-form.page').then(
+        (m) => m.EventFormPage
       ),
-      data: { animation: 'eventEdit' }
+    data: { animation: 'eventEdit' },
   },
   {
     path: ':id',
-    canDeactivate: [leavePageGuard],
     canActivate: [numericIdGuard],
     resolve: {
       event: eventResolver,
     },
     loadComponent: () =>
-      import('./event-detail/event-detail.component').then(
-        (m) => m.EventDetailComponent
+      import('./event-detail/event-detail.page').then((m) => m.EventDetailPage),
+    loadChildren: () =>
+      import('./event-detail/event-detail.routes').then(
+        (m) => m.eventDetailRoutes
       ),
-      data: { animation: 'eventDetail' }
   },
 ];

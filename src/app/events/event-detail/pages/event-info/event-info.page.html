@@ -1,0 +1,11 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Detalles del Evento</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  @if (event()) {
+  <app-event-card [event]="event()!" (deleted)="goBack()"></app-event-card>
+  }
+</ion-content>

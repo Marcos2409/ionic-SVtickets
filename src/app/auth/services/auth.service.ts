@@ -6,12 +6,12 @@ import { User } from '../../shared/interfaces/user';
 import { TokenResponse, UserResponse } from '../../shared/interfaces/responses';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   #logged = signal(false);
 
-  #http = inject(HttpClient)
+  #http = inject(HttpClient);
 
   get logged() {
     return this.#logged.asReadonly();
@@ -20,22 +20,25 @@ export class AuthService {
   login(
     email: string,
     password: string,
+    lat: number,
+    lng: number,
     firebaseToken?: string // En el futuro se usará para notificaciones Push
   ): Observable<void> {
     return this.#http
       .post<TokenResponse>('auth/login', {
         email,
         password,
+        lat,
+        lng,
         firebaseToken,
       })
       .pipe(
-        // SwitchMap permite trabajar con funciones que devuelven observables o promesas
-        switchMap(async (r) => { // Función async, devuelve promesa (Promise<void>)
+        switchMap(async (r) => {
           try {
             await Preferences.set({ key: 'fs-token', value: r.accessToken });
             this.#logged.set(true);
           } catch (e) {
-            throw new Error('Can\'t save authentication token in storage!');
+            throw new Error("Can't save authentication token in storage!");
           }
         })
       );
@@ -51,13 +54,15 @@ export class AuthService {
   }
 
   isLogged(): Observable<boolean> {
-    if (this.#logged()) { // Estamos logueados
+    if (this.#logged()) {
+      // Estamos logueados
       return of(true);
     }
     // from transforma una promesa en un observable
     return from(Preferences.get({ key: 'fs-token' })).pipe(
       switchMap((token) => {
-        if (!token.value) { // No hay token
+        if (!token.value) {
+          // No hay token
           return of(false);
         }
 
@@ -68,10 +73,9 @@ export class AuthService {
           }),
           catchError(() => of(false)) // Token no válido
         );
-      }),
+      })
     );
   }
-
 
   getProfile(): Observable<User> {
     return this.#http

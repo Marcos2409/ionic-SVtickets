@@ -74,4 +74,5 @@ locationChange = output<SearchResult>();
   setDisabledState(isDisabled: boolean): void {
     this.#elementRef.nativeElement.style.pointerEvents = isDisabled ? 'none' : 'auto';
   }
+  
 }

@@ -12,10 +12,6 @@ export interface SingleEventResponse {
   event: MyEvent;
 }
 
-export interface TokenResponse {
-  accessToken: string;
-}
-
 export interface SingleUserResponse {
   user: User;
 }
@@ -36,6 +32,13 @@ export interface MyCommentInsert {
   comment: string;
 }
 
+export interface Comment {
+  id?: number;
+  text: string;
+  date?: string;
+  user?: User;
+}
+
 export interface CommentsResponse {
   comments: SingleCommentResponse[];
 }
@@ -45,4 +48,8 @@ export interface SingleCommentResponse {
   comment: MyCommentInsert;
   date: string;
   user: User;
+}
+
+export interface TokenResponse {
+  accessToken: string;
 }

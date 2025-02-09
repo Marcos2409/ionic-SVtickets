@@ -10,7 +10,7 @@ import { OlMapDirective } from "./ol-map.directive";
 export class OlMarkerDirective {
   #olMap = inject(OlMapDirective); // Inyectamos Directiva del mapa (padre)
   coordinates = input.required<[number, number]>();
-  color = input('magenta');
+  color = input('red');
   fill = input('black');
   #marker!: Feature;
 
@@ -22,13 +22,13 @@ export class OlMarkerDirective {
       this.#marker.setStyle(
         new Style({
           image: new CircleStyle({
-            radius: 9,
+            radius: 5,
             fill: new Fill({
               color: this.color(),
             }),
             stroke: new Stroke({
               color: this.fill(),
-              width: 3,
+              width: 1,
             }),
           }),
         })

@@ -1,0 +1,18 @@
+ion-list {
+  margin: 0;
+  padding: 0;
+}
+
+ion-item {
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --min-height: 48px;
+}
+
+.filterIcon {
+  font-size: 1.2rem;
+  margin-right: 8px;
+  color: var(--ion-color-primary);
+}
+
+  

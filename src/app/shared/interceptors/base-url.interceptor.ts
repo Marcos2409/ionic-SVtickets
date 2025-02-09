@@ -1,9 +1,9 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const baseUrlInterceptor: HttpInterceptorFn = (req, next) => {
-  const serverUrl = 'https://api.fullstackpro.es/svtickets';
+  const server = "https://api.fullstackpro.es/svtickets"; // Pon la url del servidor aquí
   const reqClone = req.clone({
-    url: `${serverUrl}/${req.url}`,
+    url: `${server}/${req.url}`,
   });
   return next(reqClone);
 };

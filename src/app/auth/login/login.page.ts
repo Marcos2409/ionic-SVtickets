@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import {
@@ -16,9 +16,10 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  NavController,
 } from '@ionic/angular/standalone';
 import { AuthService } from '../services/auth.service';
-import { NavController } from '@ionic/angular';
+import { Geolocation } from '@capacitor/geolocation';
 
 @Component({
   selector: 'app-login',
@@ -46,15 +47,32 @@ import { NavController } from '@ionic/angular';
 export class LoginPage {
   email = '';
   password = '';
-  #navCtrl = inject(NavController);
 
+
+  #navCtrl = inject(NavController);
   #authService = inject(AuthService);
   #alertCtrl = inject(AlertController);
-  
+
+  coords = signal<[number, number]>([-0.5, 38.5]);
+
+  constructor() {
+    this.getLocation();
+  }
+
+  async getLocation() {
+    const coordinates = await Geolocation.getCurrentPosition({
+      enableHighAccuracy: true
+    });
+
+    this.coords.set([coordinates.coords.latitude, coordinates.coords.longitude])
+  }
 
   login() {
-    this.#authService.login(this.email, this.password).subscribe({
-      next: () => this.#navCtrl.navigateRoot(['/products']),
+    
+    this.#authService.login(this.email, this.password, this.coords()[0], this.coords()[1]).subscribe({
+      next: () => {
+        this.#navCtrl.navigateRoot(['/events']);
+      },
       error: async (error) => {
         (
           await this.#alertCtrl.create({
