@@ -27,6 +27,7 @@ import { User } from 'src/app/shared/interfaces/user';
 import { EventsService } from 'src/app/events/services/events.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-event-attend',
@@ -48,6 +49,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
     IonToolbar,
     CommonModule,
     FormsModule,
+    RouterLink
   ],
 })
 export class EventAttendPage {
